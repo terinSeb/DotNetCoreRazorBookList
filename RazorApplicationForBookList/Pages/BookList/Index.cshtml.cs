@@ -22,5 +22,17 @@ namespace RazorApplicationForBookList.Pages.BookList
         {
             Books = await _db.Book.ToListAsync();
         }
+
+        public async Task<IActionResult> OnPostDelete(int Id)
+        {
+            var BookFromDb = await _db.Book.FindAsync(Id);
+            if(BookFromDb == null)
+            {
+                return NotFound();
+            }
+            _db.Book.Remove(BookFromDb);
+            await _db.SaveChangesAsync();
+            return RedirectToPage();
+        }
     }
 }

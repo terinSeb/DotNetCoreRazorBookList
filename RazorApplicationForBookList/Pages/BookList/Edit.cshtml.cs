@@ -21,5 +21,20 @@ namespace RazorApplicationForBookList.Pages.BookList
         {
             Book = await _db.Book.FindAsync(Id);
         }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if(ModelState.IsValid)
+            {
+                var BookFromDb = await _db.Book.FindAsync(Book.Id);
+                BookFromDb.ISBN = Book.ISBN;
+                BookFromDb.Author = Book.Author;
+                BookFromDb.Name = Book.Name;
+
+                await _db.SaveChangesAsync();
+                return RedirectToPage("Index");
+            }
+            return RedirectToPage();
+        }
     }
 }
