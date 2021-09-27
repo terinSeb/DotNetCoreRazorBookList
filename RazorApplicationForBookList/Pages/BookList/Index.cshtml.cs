@@ -34,5 +34,6 @@ namespace RazorApplicationForBookList.Pages.BookList
             await _db.SaveChangesAsync();
             return RedirectToPage();
         }
+        
     }
 }
